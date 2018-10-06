@@ -38,10 +38,11 @@ class CreateProductsTable extends Migration
             $table->integer('store_msk')->nullable();
             $table->integer('store_nsk')->nullable();
             $table->string('way')->nullable();
+            $table->json('sert')->nullable();
             $table->string('barcode')->nullable();
-            $table->string('props')->nullable();
-            $table->string('specifications')->nullable();
-            $table->string('includes')->nullable();
+            $table->json('props')->nullable();
+            $table->json('specifications')->nullable();
+            $table->json('includes')->nullable();
 
             $table->timestamps();
         });

@@ -14,40 +14,40 @@ class ProductTableSeeder extends Seeder
     {
         //
         $json = file_get_contents('http://www.galacentre.ru/api/v2/catalog/json/?key=d27b9aa09102f001d6f6f5c5fc97d222');
-        $data =  (array)json_decode($json);
-        $catalogs = $data['DATA'];
+        // $json = file_get_contents('http://www.galacentre.ru/api/v2/catalog/json/?key=d27b9aa09102f001d6f6f5c5fc97d222&section=1439&store=msk');
+        $data =  array_merge((array) json_decode($json));
+        $products = $data['DATA'];
 
-        $products = [];
-
-        foreach ($catalogs as $key => $item) {
+        
+        foreach ($products as $key => $item) {
 
             Product::create(
                 [
-                    'product_id' => $products[$key] = $item->id,
-                    'active' => $products[$key] = $item->active,
-                    'date_update' => $products[$key] = $item->date_update,
-                    'articul' => $products[$key] = $item->articul,
-                    'name' => $products[$key] = $item->name,
-                    'about' => $products[$key] = $item->about,
-                    'section' => $products[$key] = $item->section,
-                    'image' => $products[$key] = $item->image,
-                    'price_base' => $products[$key] = $item->price_base,
-                    'price_old' => $products[$key] = $item->price_old,
-                    'price_sp' => $products[$key] = $item->price_sp,
-                    'min' => $products[$key] = $item->min,
-                    'box' => $products[$key] = $item->box,
-                    'fix' => $products[$key] = $item->fix,
-                    'new' => $products[$key] = $item->new,
-                    'hit' => $products[$key] = $item->hit,
-                    'brand' => $products[$key] = $item->brand,
-                    'store_ekb' => $products[$key] = $item->store_ekb,
-                    'store_msk' => $products[$key] = $item->store_msk,
-                    'store_nsk' => $products[$key] = $item->store_nsk,
-                    'way' => $products[$key] = $item->way,
-                    'barcode' => $products[$key] = $item->barcode,
-                    'props' => $products[$key] = $item->props,
-                    'specifications' => $products[$key] = $item->specifications,
-                    'includes' => $products[$key] = $item->includes,
+                    'product_id' =>     $item->id,
+                    'active' =>         $item->active,
+                    'date_update' =>    $item->date_update,
+                    'articul' =>        $item->articul,
+                    'name' =>           $item->name,
+                    'about' =>          $item->about,
+                    'section' =>        $item->section,
+                    'image' =>          $item->image,
+                    'price_base' =>     $item->price_base,
+                    'price_old' =>      $item->price_old,
+                    'price_sp' =>       $item->price_sp,
+                    'min' =>            $item->min,
+                    'box' =>            $item->box,
+                    'fix' =>            $item->fix,
+                    'new' =>            $item->new,
+                    'hit' =>            $item->hit,
+                    'brand' =>          $item->brand,
+                    'store_ekb' =>      $item->store_ekb,
+                    'store_msk' =>      $item->store_msk,
+                    'store_nsk' =>      $item->store_nsk,
+                    'way' =>            $item->way,
+                    'barcode' =>        $item->barcode,
+                    'props' =>          $item->props,
+                    'specifications' => $item->specifications,
+                    'includes' =>       $item->includes,
                 ]
             );
         }

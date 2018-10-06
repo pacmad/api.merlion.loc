@@ -9,116 +9,77 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/app.css">
         <!-- Styles -->
 
     </head>
     <body>
-        <div class="flex-top position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-                <div class="top-left links">
-                        <a href="{{ url('/home') }}">Home</a>
-                        <a href="#"><span>Laracasts</span>
-                            <div class="menu-top">
+       
+        <div>
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                                
-                                <div class="accordion" id="accordionExample">
-                                    <div class="card">
-                                        <div class="menu-item">
-                                            @foreach($categories as $category)
-                                                <div class="card-header" id="headingOne-{{ $category->id }}">
-                                                    <h5 class="mb-0">
-                                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne-{{ $category->id }}" aria-expanded="true" aria-controls="collapseOne-{{ $category->id }}">
-                                                            {{ $category->name }}
-                                                        </button>
-                                                    </h5>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="menu-list">
-                                            @foreach($categories as $category)
-                                                <div id="collapseOne-{{ $category->id }}" class="collapse " aria-labelledby="headingOne-{{ $category->id }}" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            @foreach($category->children as $cats)
-                                                                <div class="col-md-3">
-                                                                    <h5>{{ $cats->name }}</h5>
-                                                                    <hr />
-                                                                    <ul>
-                                                                        @foreach($cats->children as $cat)
-                                                                            <li><a href="">{{$cat->name}}</a></li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                          <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              @foreach($categories as $category)
+                                  <a class="dropdown-item" href="#">{{ $category->name }}</a>
+                              @endforeach
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Something else here</a>
                             </div>
-                        </a>
-                </div>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                          </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </header>
 
-            <div class="content">
-                <div class="title m-b-md text-center">
-                    Laravel
-                </div>
-
-                <div class="links text-center">
-                    <a href="https://laravel.com/docs">Documentation</a>
-
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+            <div>
 
 
 
-                <div class="container mt-5 mb-5">
-                    @yield('content')
-                </div>
-
-                {{--<div class="text-left">--}}
-                    {{--<ul>--}}
-                        {{--@foreach($categories as $category)--}}
-                            {{--<div class="col-md-12">--}}
-                                {{--<h4 style="background: #d6e9f8">{{ $category->name }}</h4>--}}
-                                {{--<hr />--}}
-                                {{--<div class="row">--}}
-                                    {{--@foreach($category->children as $cats)--}}
-                                        {{--<div class="col-md-3">--}}
-                                            {{--<h5>{{ $cats->name }}</h5>--}}
-                                            {{--<hr />--}}
-                                            {{--@foreach($cats->children as $cat)--}}
-                                                {{--<h6>{{$cat->name}}</h6>--}}
-                                            {{--@endforeach--}}
-                                        {{--</div>--}}
-                                    {{--@endforeach--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
             </div>
+
+            <main role="main" class="container">
+              <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                <img class="mr-3" src="../../assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
+                <div class="lh-100">
+                  <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
+                  <small>Since 2011</small>
+                </div>
+              </div>
+ 
+
+              <div class="my-3 p-3 bg-white rounded shadow-sm">
+                <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
+                @yield('content') 
+                
+              </div>
+            </main>
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="/js/app.js"></script>
         <script type="text/javascript">
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
