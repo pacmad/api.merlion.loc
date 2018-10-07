@@ -17,7 +17,7 @@ class Product extends Model
         'articul',
         'name',
         'about',
-        'section',
+        'category_id',
         'image',
         'price_base',
         'price_old',
@@ -39,12 +39,38 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'id' => 'int',
         'sert' => 'array',
         'specifications' => 'array',
         'includes' => 'array',
         'images' => 'array',
-        'props' => 'array'
+        'props' => 'array',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public static function add($fields)
+    {
+        $product = new static;
+        $product->fill($fields);
+        $product->save();
+
+        return $product;
+    }
+
+    public function edit($fields)
+    {
+        $this->fill($fields);
+        $this->save();
+    }
+
+    public function setCategory($id)
+    {
+        if($id == null) {return;}
+        $this->category_id = $id;
+        $this->save();
+    }
 
 }

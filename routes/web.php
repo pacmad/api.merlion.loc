@@ -37,5 +37,4 @@
 // });
 
 Route::get('/',  'CategoriesController@index');
-Route::get('/products',  'ProductsController@index');
-
+Route::resource('/products', 'ProductsController');

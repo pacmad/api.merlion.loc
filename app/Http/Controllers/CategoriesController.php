@@ -23,7 +23,8 @@ class CategoriesController extends Controller
 //        $allCategories = Category::pluck('name','id')->all();
 //        return view('welcome', compact('categories','allCategories'));
 
-        $categories = Category::get()->toTree();
+//        $categories = Category::get()->toTree();
+        $categories = Category::with('ancestors')->paginate(30);
         return view('welcome', compact('categories'));
     }
 

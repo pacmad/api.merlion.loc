@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('articul')->nullable();
             $table->string('name');
             $table->text('about')->nullable();
-            $table->integer('section')->nullable();
+            $table->integer('category_id')->nullable(); //section
             $table->string('image')->nullable();
             $table->float('price_base')->nullable();
             $table->float('price_old')->nullable();

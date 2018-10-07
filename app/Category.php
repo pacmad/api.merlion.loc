@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Product;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,8 @@ class Category extends Model
         'count'
     ];
 
-
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 
 }
