@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 /**
@@ -23,8 +24,8 @@ class CategoriesController extends Controller
 //        $allCategories = Category::pluck('name','id')->all();
 //        return view('welcome', compact('categories','allCategories'));
 
-//        $categories = Category::get()->toTree();
-        $categories = Category::with('ancestors')->paginate(30);
+        $categories = Category::get()->toTree();
+//        $categories = Category::defaultOrder()->withDepth()->get();
         return view('welcome', compact('categories'));
     }
 
@@ -58,6 +59,40 @@ class CategoriesController extends Controller
     public function show($id)
     {
         //
+        $category = Category::where('id', $id)->firstOrFail();
+//        $categories = Category::get()->toTree();
+//        $products = $category->products()->paginate(2);
+//        $categories = $category->categories()->paginate(2);
+
+
+        $products = $category->products()->paginate(10);
+//          $products = Category::find($id)->with('products')->paginate(10);
+
+
+
+
+        $nodes = Category::get()->toTree();
+        $traverse = function ($categories, $prefix = '-') use (&$traverse) {
+            foreach ($categories as $category) {
+                echo '<li>'. PHP_EOL.$prefix.' '.$category->name .'</li>';
+
+                $traverse($category->children, $prefix.'-');
+            }
+        };
+
+
+
+
+        $result = Category::where('parent_id', $id)->get();
+
+//            $results  =  Category::ancestorsOf($id);
+        $resultId = Category::where('id', $category->parent_id)->get();
+
+//        $results = Category::defaultOrder()->ancestorsAndSelf($id);
+//        dd($results);
+
+        return view('categories.show', compact('category', 'products', 'result', 'nodes', 'traverse' ,'resultId'));
+
     }
 
     /**

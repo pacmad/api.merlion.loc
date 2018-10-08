@@ -14,13 +14,40 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $categories = Category::get()->toTree();
+
+
+        $q = $request->input('q');
+        $max_page = 10;
+        if (empty($q)) {
+            $products = Product::paginate($max_page);
+        } else {
+            // $persons = $this->search($q, $max_page);
+            // $persons = Person::searchByQuery(['multi_match' => ['name' => $q]])->paginate(10) ;
+            $products = Product::searchByQuery([
+                'multi_match' => [
+                    'query' => $q,
+                    'fuzziness' => 'AUTO',
+                    'fields' => [ "name^3", "about"]
+                ]
+//                'match' => ['name' => $q]
+            ])->paginate($max_page);
+        }
+
+
+//        $categories = Category::get()->toTree();
+//        $categories = Category::all();
 //        $products = Product::get()->toTree();
-        $products = Product::with('ancestors')->paginate(15);
-        return view('products.index', compact('categories', 'products'));
+//        $products = Product::with('ancestors')->paginate(15);
+//        return view('products.index', compact('categories', 'products'));
+        return view('products.index', compact('products'))->render();
+
+        //
+//        $categories = Category::get()->toTree();
+////        $products = Product::get()->toTree();
+//        $products = Product::with('ancestors')->paginate(15);
+//        return view('products.index', compact('categories', 'products'));
     }
 
     /**

@@ -36,5 +36,22 @@
 // 	return view('welcome', compact('products'));
 // });
 
-Route::get('/',  'CategoriesController@index');
+//use App\Product;
+//
+//Route::get('/', function () {
+//
+//    Product::createIndex($shards = null, $replicas = null);
+//    Product::putMapping($ignoreConflicts = true);
+//    Product::addAllToIndex();
+//
+//
+////    Product::reindex();
+//
+//    return view('welcome');
+//});
+
+Route::resource('/categories',  'CategoriesController');
 Route::resource('/products', 'ProductsController');
+
+//Route::get('/search', 'SearchesController@search')->name('search.search');
+Route::get('/searches/product', 'SearchesController@search')->name('search.product');

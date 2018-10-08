@@ -2,17 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-//use Kalnoy\Nestedset\NodeTrait;
 use Elasticquent\ElasticquentTrait;
+use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Search extends Model
 {
     //
-//    use NodeTrait;
     use ElasticquentTrait;
     protected $table = 'products';
-
     protected $fillable = [
         'product_id',
         'active',
@@ -58,45 +55,6 @@ class Product extends Model
             'type' => 'text',
             "analyzer" => "standard",
         ],
+
     );
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public static function add($fields)
-    {
-        $product = new static;
-        $product->fill($fields);
-        $product->save();
-
-        return $product;
-    }
-
-    public function edit($fields)
-    {
-        $this->fill($fields);
-        $this->save();
-    }
-
-    public function setCategory($id)
-    {
-        if($id == null) {return;}
-        $this->category_id = $id;
-        $this->save();
-    }
-
-    public function getCategoryID()
-    {
-        return $this->category != null ? $this->category->id : null;
-    }
-
-    public function getCategoryTitle()
-    {
-        return ($this->category != null)
-            ?   $this->category->name
-            :   'Нет категории';
-    }
-
 }

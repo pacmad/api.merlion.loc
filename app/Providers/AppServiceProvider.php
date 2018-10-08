@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Category;
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+
+
+        view()->composer('cat-childs', function($view){
+            $view->with('categories', Category::with('ancestors')->paginate(30));
+        });
     }
 
     /**
@@ -24,5 +33,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->singleton(Client::class, function (Application $app) {
+            $config = $app->make('config')->get('elasticsearch');
+            return ClientBuilder::create()
+                ->setHosts($config['hosts'])
+                ->setRetries($config['retries'])
+                ->build();
+        });
     }
 }

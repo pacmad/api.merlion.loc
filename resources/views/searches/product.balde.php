@@ -3,8 +3,8 @@
 
 @section('content')
 <div class="my-3 p-3 bg-white rounded shadow-sm">
-                <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
-                
+    <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
+
 
     @foreach($products as $product)
 
@@ -12,31 +12,28 @@
         <a href="{{route('products.edit', $product->id)}}">
             <img class="mr-2 rounded" src="{{ $product->image }}" alt="Card image cap" data-toggle="tooltip" data-placement="top" title="{{ $product->name }}"  style="width: 32px; height: 32px;">
         </a>
-      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <strong class="text-gray-dark">{{ str_limit($product->name)}}</strong>
-          <a href="#">
-            {{ $product->price_base }} руб
-          </a>
-        </div>
-        <span class="d-block"> <strong>Артикул: </strong>{{ $product->articul }}</span>
-        <span class="d-block"> <strong>Наличие</strong>
+        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <strong class="text-gray-dark">{{ str_limit($product->name)}}</strong>
+                <a href="#">
+                    {{ $product->price_base }} руб
+                </a>
+            </div>
+            <span class="d-block"> <strong>Артикул: </strong>{{ $product->articul }}</span>
+            <span class="d-block"> <strong>Наличие</strong>
             <ul>
                 <li>Екатеринбург: {{ $product->store_ekb }}</li>
                 <li>Новосибирск: {{ $product->store_nsk }}</li>
                 <li>Москва: {{ $product->store_msk }}</li>
             </ul>
         </span>
-        <span class="d-block">
-            <a href="{{ route('categories.show', $product->category_id) }}">{{ $product->getCategoryTitle() }}</a>
-        </span>
-        <span class="d-block">{{ str_replace('Описание=', '', $product->about) }}</span>
-        <span class="d-block">
+            <span class="d-block">{{ str_replace('Описание=', '', $product->about) }}</span>
+            <span class="d-block">
             {{-- @foreach($product->props as $prop)
                 {{ str_replace('=', ': ', $prop) }}<br>
             @endforeach --}}
         </span>
-      </div>
+        </div>
     </div>
     @endforeach
 
@@ -51,14 +48,14 @@
     {{-- <div class="clearfix row">
 
         @foreach($products as $product)
-            <div class="card col-3">
-                <img class="card-img-top" src="{{ $product->image }}" alt="Card image cap" data-toggle="tooltip" data-placement="top" title="{{ $product->name }}">
-                <div class="card-block">
-                    <h4 class="card-title" data-toggle="tooltip" data-placement="top" title="{{ $product->name }}">{{ str_limit($product->name, 18)}}</h4>
-                    <p class="card-text">{{ str_limit($product->about, 50)}}</p>
-                    <p class="card-text"><small class="text-muted">{{ $product->price_base }}</small></p>
-                </div>
+        <div class="card col-3">
+            <img class="card-img-top" src="{{ $product->image }}" alt="Card image cap" data-toggle="tooltip" data-placement="top" title="{{ $product->name }}">
+            <div class="card-block">
+                <h4 class="card-title" data-toggle="tooltip" data-placement="top" title="{{ $product->name }}">{{ str_limit($product->name, 18)}}</h4>
+                <p class="card-text">{{ str_limit($product->about, 50)}}</p>
+                <p class="card-text"><small class="text-muted">{{ $product->price_base }}</small></p>
             </div>
+        </div>
         @endforeach
 
     </div>
@@ -74,5 +71,5 @@
 
     <script></script> --}}
 
-              </div>
+</div>
 @endsection

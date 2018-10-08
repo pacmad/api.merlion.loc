@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-use Product;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,4 +21,8 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class);
+    }
 }
